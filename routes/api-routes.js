@@ -12,8 +12,8 @@ app.get("/api/workouts", (req, res) => {
       });
   });
 
-  app.get("/api/workouts/:id", (req, res) => {
-    db.Workout.findOne({_id: req.params.id})
+  app.post("/api/workouts/:id", (req, res) => {
+    db.Workout.updateOne({_id: req.params.id}, {$push: {exercises: req.body}})
       .then(dbWorkout => {
         res.json(dbWorkout);
       })
@@ -33,7 +33,8 @@ app.get("/api/workouts", (req, res) => {
   });
 
   app.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({})
+    db.Workout.find({
+    })
       .then(dbWorkout => {
         res.json(dbWorkout);
       })
